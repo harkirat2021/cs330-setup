@@ -5,7 +5,7 @@ export FLASK_ENV=development
 flask run
 '''
 from flask_restful import Api
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 from flask_cors import CORS
 
 import db
@@ -15,6 +15,20 @@ app = Flask(__name__)
 CORS(app)
 db.init_database_connection(app)
 api = Api(app)
+
+########################### New in HW02
+@app.route('/')
+def list_posts():
+    return render_template('get-posts.html')
+
+@app.route('/add-post/')
+def create_post():
+    return render_template('create-post.html')
+
+@app.route('/post/')
+def get_single_post():
+    return render_template('post-detail.html')
+########################### End New in HW02
 
 # connect your routes to your app:
 @app.route('/')
